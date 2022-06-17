@@ -57,7 +57,6 @@ function App()
     }
   }
 
-  // there is a problem here
   const updateShelf = (book , shelf) => {
 
     BooksAPI.update(book, shelf)
