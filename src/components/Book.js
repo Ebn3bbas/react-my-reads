@@ -3,10 +3,10 @@ import PropTypes from 'prop-types'
 
 function Book({ book, updateShelf })
 {
-    const propTypes = {
-        book: PropTypes.object.isRequired,
-        updateShelf: PropTypes.func.isRequired,
-    }
+    Book.propTypes = {
+      book: PropTypes.object.isRequired,
+      updateShelf: PropTypes.func.isRequired,
+      }
     let shelf = (book.shelf)
       ? book.shelf
         : 'none'

@@ -57,18 +57,14 @@ function App()
     }
   }
 
-  // there is a problem here
+  // Filter out the book and append it to the end of the list
+// so it appears at the end of whatever shelf it was added to.
   const updateShelf = (book , shelf) => {
 
-    BooksAPI.update(book, shelf)
-      .then(shelfUpdated => (
-        BooksAPI.getAll()
-          .then(books =>
-          {
-            setBooks(books)
-            updateSearchResult(searchResult)
-          })
-      ))
+    book.shelf = shelf;
+    BooksAPI.update(book, shelf).then(() => {
+    setBooks([...books.filter((b) => b.id !== book.id), book]);
+    })
   }
 
   return (

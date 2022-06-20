@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from '../BooksAPI'
 import Book from '../components/Book'
+import PropTypes from 'prop-types'
 function SearchScreen({ searchResult, search ,updateShelf})
 {
-
+  SearchScreen.propTypes = {
+    searchResult: PropTypes.array.isRequired,
+    search: PropTypes.func.isRequired,
+    updateShelf: PropTypes.func.isRequired,
+    }
   return (
     <div className="search-books">
     <div className="search-books-bar">
@@ -15,7 +19,7 @@ function SearchScreen({ searchResult, search ,updateShelf})
                   <input
             type="text"
             placeholder="Search by title or author"
-            onChange={(e) => search(e.target.value)}
+            onChange={(e) => setTimeout(search(e.target.value),100) }
                   />
       </div>
       </div>
