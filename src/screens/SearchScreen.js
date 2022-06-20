@@ -2,9 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Book from '../components/Book'
 import PropTypes from 'prop-types'
-function SearchScreen({ searchResult, search ,updateShelf})
+function SearchScreen({error, searchResult, search ,updateShelf})
 {
   SearchScreen.propTypes = {
+    error: PropTypes.string.isRequired,
     searchResult: PropTypes.array.isRequired,
     search: PropTypes.func.isRequired,
     updateShelf: PropTypes.func.isRequired,
@@ -24,7 +25,8 @@ function SearchScreen({ searchResult, search ,updateShelf})
       </div>
       </div>
     <div className="search-books-results">
-      <ol className="books-grid">
+        <ol className="books-grid">
+          {error && <p>{ error }</p>}
           {searchResult &&  searchResult.map(book => (
                 <Book key={book.id} book={book} updateShelf={ updateShelf }/>
               ))

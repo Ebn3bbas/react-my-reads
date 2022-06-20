@@ -8,7 +8,8 @@ import * as BooksAPI from './BooksAPI'
 function App()
 {
   const [books, setBooks] = useState([]) 
-  const [searchResult , setSearchResult] = useState([])
+  const [searchResult, setSearchResult] = useState([])
+  const [error , setError] = useState("")
     
     useEffect(() =>
     {
@@ -49,6 +50,7 @@ function App()
         if (res.error === 'empty query')
         {
           setSearchResult([])
+          setError("Book Not Found")
         } else
         {
           setSearchResult(res)
@@ -57,10 +59,7 @@ function App()
     }
   }
 
-  // Filter out the book and append it to the end of the list
-// so it appears at the end of whatever shelf it was added to.
   const updateShelf = (book , shelf) => {
-
     book.shelf = shelf;
     BooksAPI.update(book, shelf).then(() => {
     setBooks([...books.filter((b) => b.id !== book.id), book]);
@@ -72,7 +71,8 @@ function App()
     <div className="App">
         <Routes>
           <Route path="/" element={<HomeScreen books={books} updateShelf={ updateShelf }/>} />
-          <Route path="/search" exact element={<SearchScreen searchResult={searchResult} search={ search } updateShelf={ updateShelf }/>} />
+          <Route path="/search" exact element={<SearchScreen searchResult={searchResult}
+            search={search} updateShelf={updateShelf} error={error} />} />
       </Routes>
     </div>
     </BrowserRouter>
